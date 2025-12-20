@@ -1,3 +1,8 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'درباره ما',
+};
 
 const page = () => {
     return (

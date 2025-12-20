@@ -17,8 +17,8 @@ const Navbar = () => {
                                 <Image src="/images/logo.png" alt="logo" width={100} height={50} />
                             </Link>
                             <ul className="hidden md:flex items-center gap-x-4">
-                                <li className="text-muted cursor-pointer hover:text-primary transition">فرصت های شغلی</li>
-                                <Link href="about" className="text-muted cursor-pointer hover:text-primary transition">درباره ما</Link>
+                                <Link href="/jobs" className="text-muted cursor-pointer hover:text-primary transition">فرصت های شغلی</Link>
+                                <Link href="/about" className="text-muted cursor-pointer hover:text-primary transition">درباره ما</Link>
                             </ul>
                         </div>
 

@@ -2,6 +2,7 @@ import { createSupabaseServerClient } from "@lib/supabase/createServerClient";
 import { Category } from "@typess/index";
 import { ServiceResult } from "@typess/index";
 
+export const dynamic = "force-static";
 export async function getCategoryData(): Promise<ServiceResult<Category[]>> {
   const supabase = await createSupabaseServerClient();
 

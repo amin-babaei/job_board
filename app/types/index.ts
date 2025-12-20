@@ -7,7 +7,7 @@ export interface Category {
   created_at: string;
 }
 
-export type JobType = 
+export type JobType =
   | "full_time"
   | "part_time"
   | "remote";
@@ -22,9 +22,14 @@ export interface JobPost {
   salary_min: number | null;
   salary_max: number | null;
   job_type: JobType;
+  serial_id: string;
   created_at: string;
-  employers?: {
+  employers: {
     company_name: string;
+    email: string;
+  };
+  categories: {
+    name: string;
   };
 }
 

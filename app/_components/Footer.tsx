@@ -2,6 +2,7 @@
 import { Github, Linkedin } from "lucide-react";
 import { Button } from "./ui/Button";
 import { Input } from "./ui/Input";
+import Link from "next/link";
 
 export default function Footer() {
   const year = new Date().toLocaleDateString("fa-IR", { year: "numeric" });
@@ -38,8 +39,8 @@ export default function Footer() {
           <div className="sm:ml-auto">
             <h4 className="text-sm font-semibold mb-3">لینک‌های سریع</h4>
             <ul className="space-y-2 text-sm text-muted">
-              <li><a href="#" className="hover:text-primary transition">فرصت‌های شغلی</a></li>
-              <li><a href="#" className="hover:text-primary transition">درباره ما</a></li>
+              <li><Link href="/jobs" className="hover:text-primary transition">فرصت‌های شغلی</Link></li>
+              <li><Link href="/about" className="hover:text-primary transition">درباره ما</Link></li>
               <li><a href="#" className="hover:text-primary transition">تماس با ما</a></li>
               <li><a href="#" className="hover:text-primary transition">راهنما</a></li>
             </ul>

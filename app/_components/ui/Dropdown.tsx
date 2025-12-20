@@ -47,15 +47,23 @@ function useDropdown() {
   return ctx;
 }
 
-Dropdown.Trigger = function Trigger({ placeholder }: { placeholder: string }) {
+Dropdown.Trigger = function Trigger({
+  placeholder,
+  children,
+}: {
+  placeholder?: string;
+  children?: ReactNode;
+}) {
   const { open, setOpen, value } = useDropdown();
+  const displayText = children ?? (value || placeholder);
+
   return (
     <button
       onClick={() => setOpen(!open)}
-      className="flex justify-between items-center w-full border border-border-main p-3 rounded-lg bg-card"
+      className="flex justify-between items-center w-full border border-border-main p-3 rounded-lg bg-card text-right"
     >
-      {value || placeholder}
-      <ChevronDown size={20} className="text-muted" />
+      <span className="truncate">{displayText || placeholder}</span>
+      <ChevronDown size={20} className="text-muted mr-2" />
     </button>
   );
 };

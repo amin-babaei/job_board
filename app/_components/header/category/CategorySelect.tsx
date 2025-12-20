@@ -2,6 +2,7 @@
 
 import Dropdown from "@components/ui/Dropdown";
 import { Category } from "@typess/index";
+import { useSearchParams } from "next/navigation";
 
 export default function CategorySelect({
   categories,
@@ -12,13 +13,21 @@ export default function CategorySelect({
   value: string;
   onChange: (v: string) => void;
 }) {
+  const searchParams = useSearchParams();
+  const categorySlug = searchParams.get("category") || "";
+  
+  const selectedCategory = categories.find((cat) => cat.slug === ( value || categorySlug));
+
   return (
     <Dropdown value={value} onChange={onChange}>
-      <Dropdown.Trigger placeholder="انتخاب دسته بندی..." />
+      <Dropdown.Trigger>
+        {selectedCategory ? selectedCategory.name : "انتخاب دسته بندی..."}
+      </Dropdown.Trigger>
+
       <Dropdown.Content>
         <Dropdown.List>
           {categories.map((cat) => (
-            <Dropdown.Item key={cat.id} value={cat.name}>
+            <Dropdown.Item key={cat.id} value={cat.slug}>
               {cat.name}
             </Dropdown.Item>
           ))}

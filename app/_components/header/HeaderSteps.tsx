@@ -6,12 +6,25 @@ import ArrowDownSVG from "./svg/ArrowDownSVG";
 import { Category, City } from "@typess/index";
 import { Button } from "@components/ui/Button";
 import CategorySelect from "./category/CategorySelect";
+import { useRouter } from "next/navigation";
 
 export default function HeaderClient({ cities, categories }: { cities: City[], categories: Category[] }) {
     const [step, setStep] = useState(1);
     const [city, setCity] = useState("");
     const [category, setCategory] = useState("");
-    const result = "شهر " + city + (category ? ` در دسته ${category}` : "");
+    const router = useRouter();
+    const selectedCategory = categories.find((cat) => cat.slug === category);
+    const result = "شهر " + city + (category ? ` در دسته ${selectedCategory?.name}` : "");
+
+  const handleSearch = () => {
+        const params = new URLSearchParams();
+
+        if (city) params.set("city", city);
+        if (category) params.set("category", category);
+
+        router.push(`/jobs?${params.toString()}`);
+    };
+
     return (
         <div className="relative md:w-1/2 mx-auto space-y-4">
             <TextType step={step} />
@@ -33,7 +46,7 @@ export default function HeaderClient({ cities, categories }: { cities: City[], c
                 <Button
                     variant="primary"
                     disabled={(step === 1 && !city) || (step === 2 && !category)}
-                    onClick={() => setStep(step + 1)}
+                    onClick={step == 3 ? handleSearch :() => setStep(step + 1)}
                     className="w-full md:w-1/4"
                 >
                     {step === 1 || step === 2 ? "مرحله بعد" : "جستجو"}

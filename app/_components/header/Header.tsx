@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import LineSVG from "./svg/LineSVG";
 import HeaderDataProvider from "./HeaderDataProvider";
-import SkeleteLoadingHeader from "@components/ui/SkeleteLoadingHeader";
+import SkeleteLoadingHeader from "@components/ui/skeleteLoading/SkeleteLoadingHeader";
 
 const Header = async () => {
 

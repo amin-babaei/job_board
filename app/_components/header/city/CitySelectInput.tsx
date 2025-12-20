@@ -4,6 +4,7 @@ import { useState } from "react";
 import Dropdown from "@components/ui/Dropdown";
 import { Input } from "@components/ui/Input";
 import { City } from "@typess/index";
+import { useSearchParams } from "next/navigation";
 
 export default function CitySelect({
   cities,
@@ -15,12 +16,15 @@ export default function CitySelect({
   onChange: (v: string) => void;
 }) {
   const [search, setSearch] = useState("");
+  const searchParams = useSearchParams();
 
-  const filtered = cities.filter((c) => c.name.includes(search));
+  const filtered = cities.filter((c) =>
+    c.name.includes(search)
+  );
 
   return (
     <Dropdown value={value} onChange={onChange}>
-      <Dropdown.Trigger placeholder="انتخاب شهر..." />
+      <Dropdown.Trigger placeholder={searchParams.get("city") || "انتخاب شهر..."} />
 
       <Dropdown.Content>
         <div className="p-2">

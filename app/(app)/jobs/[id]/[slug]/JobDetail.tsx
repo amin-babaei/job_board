@@ -1,13 +1,11 @@
-import { Button } from "@components/ui/Button"
 import { JobPost } from "@typess/index"
 import { toPersianDigits } from "@utils/numberFormatter"
+import { persianJobType } from "@utils/persianJobType"
 import { formatCurrency } from "@utils/priceFormatter"
 import { Building2 } from "lucide-react"
+import SendResume from "./SendResume"
 
-const JobDetail = ({ job }: { job: JobPost }) => {
-
-    const persianType = job.job_type === "full_time" ? "تمام وقت" : job.job_type === "part_time" ? "پاره وقت" : "دورکاری";
-
+const JobDetail = async ({ job }: { job: JobPost }) => {
     return (
         <section className="container mx-auto my-10">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -23,32 +21,22 @@ const JobDetail = ({ job }: { job: JobPost }) => {
                     <div className="flex flex-wrap gap-5">
                         <span className="bg-gray-600 w-fit p-2 rounded-lg text-white text-xs">شهر : {job.city}</span>
                         <span className="bg-gray-600 w-fit p-2 rounded-lg text-white text-xs">دسته بندی : {job.categories.name}</span>
-                        <span className="bg-gray-600 w-fit p-2 rounded-lg text-white text-xs">نوع همکاری : {persianType}</span>
+                        <span className="bg-gray-600 w-fit p-2 rounded-lg text-white text-xs">نوع همکاری :
+                            {persianJobType(job.job_type)}
+                        </span>
                         <h4 className="bg-gray-600 w-fit p-2 rounded-lg text-white text-xs">
                             حقوق :
                             {job.salary_min && job.salary_max
                                 ? `${toPersianDigits(formatCurrency(job.salary_min))} تا ${toPersianDigits(
                                     formatCurrency(job.salary_max)
                                 )} تومان`
-                                : "حقوق توافقی"}
+                                : "توافقی"}
                         </h4>
                     </div>
                     <h3 className="font-extrabold border-b border-border-main mt-10 text-xl">شرح موقعیت شغلی</h3>
                     <p className="leading-relaxed whitespace-pre-wrap mt-4">{job.description}</p>
                 </div>
-                <div className="md:sticky md:top-24 md:self-start">
-                    <div className="bg-card border border-border-main rounded-lg p-6 shadow-soft">
-                        <h4 className="font-extrabold text-center text-xl mb-6 border-b border-border-main pb-4">
-                            از اینجا شروع کنید
-                        </h4>
-                        <Button variant="success" className="w-full">
-                            ارسال رزومه
-                        </Button>
-                        <p className="text-center text-sm text-muted mt-4">
-                            با یک کلیک رزومه خود را ارسال کنید
-                        </p>
-                    </div>
-                </div>
+                <SendResume link={`/jobs/${job.serial_id}/apply`} />
             </div>
         </section>
     )

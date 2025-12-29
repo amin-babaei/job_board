@@ -1,5 +1,6 @@
 "use server";
 import { createSupabaseServerClient } from "@lib/supabase/createServerClient";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 type State = {
@@ -66,5 +67,13 @@ export async function signInEmployer(prevState: State, formData: FormData): Prom
     return { error: "این ایمیل متعلق به حساب کارفرما نیست" };
   }
 
+  redirect("/");
+}
+
+export async function handleSignOut() {
+  const supabase = await createSupabaseServerClient();
+  await supabase.auth.signOut();
+  
+  revalidatePath("/", "layout");
   redirect("/");
 }

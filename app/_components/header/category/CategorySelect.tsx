@@ -14,20 +14,21 @@ export default function CategorySelect({
   onChange: (v: string) => void;
 }) {
   const searchParams = useSearchParams();
-  const categorySlug = searchParams.get("category") || "";
-  
-  const selectedCategory = categories.find((cat) => cat.slug === ( value || categorySlug));
+  const categorySlug = searchParams.get("category") ?? "";
+
+  const currentSlug = value || categorySlug;
+
+  const selectedCategory = categories.find((cat) => cat.slug === currentSlug);
 
   return (
     <Dropdown value={value} onChange={onChange}>
       <Dropdown.Trigger>
         {selectedCategory ? selectedCategory.name : "انتخاب دسته بندی..."}
       </Dropdown.Trigger>
-
       <Dropdown.Content>
         <Dropdown.List>
           {categories.map((cat) => (
-            <Dropdown.Item key={cat.id} value={cat.slug}>
+            <Dropdown.Item key={cat.id} value={cat.slug ?? ""}>
               {cat.name}
             </Dropdown.Item>
           ))}

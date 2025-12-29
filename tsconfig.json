@@ -45,6 +45,9 @@
       "@images/*": [
         "public/images/*"
       ],
+      "@services/*": [
+        "app/services/*"
+      ],
     }
   },
   "include": [

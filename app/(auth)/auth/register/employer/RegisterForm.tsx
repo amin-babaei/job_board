@@ -5,6 +5,7 @@ import { Input } from "@components/ui/Input";
 import { Mail, Building2, Phone, Globe, MapPin } from "lucide-react";
 import { useActionState } from "react";
 import { signUpEmployer } from "@lib/actions/RegisterActions";
+import ErrorMessage from "@components/ui/ErrorMessage";
 
 export default function EmployerRegisterForm() {
   const [state, formAction, isPending] = useActionState(signUpEmployer, { error: null });
@@ -63,10 +64,8 @@ export default function EmployerRegisterForm() {
         disabled={isPending}
       />
 
-      {state?.error && (
-        <p className="text-red-500 text-sm text-center bg-red-50 px-4 py-3 rounded-lg">
-          {state.error}
-        </p>
+       {state?.error && (
+        <ErrorMessage message={state.error}/>
       )}
 
       <Button

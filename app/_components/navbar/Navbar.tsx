@@ -7,24 +7,23 @@ import Link from "next/link";
 import { Button } from "@components/ui/Button";
 import { useSupabaseUser } from "@hooks/useSupabaseUser";
 import { Loader2, LogOut, User } from "lucide-react";
-import { createBrowserSupabaseClient } from "@lib/supabase/createBrowserClient";
-import { useState } from "react";
+import { Suspense, useActionState } from "react";
+import { handleSignOut } from "@lib/actions/LoginActions";
 
+function SearchInputSuspense() {
+  return (
+    <Suspense fallback={
+      <div className="relative w-full xs:w-auto">
+        <div className="h-12 w-full xs:w-80 bg-muted/30 rounded-full animate-pulse" />
+      </div>
+    }>
+      <SearchInput />
+    </Suspense>
+  );
+}
 const Navbar = () => {
-    const { user, loading } = useSupabaseUser();
-    const [isSigningOut, setIsSigningOut] = useState(false);
-
-    const handleSignOut = async () => {
-        setIsSigningOut(true);
-
-        try {
-            const supabase = createBrowserSupabaseClient();
-            await supabase.auth.signOut();
-            window.location.href = "/";
-        } catch {
-            setIsSigningOut(false);
-        }
-    };
+    const { user, loading, role } = useSupabaseUser();
+    const [state, signOutAction, isPending] = useActionState(handleSignOut, null);
 
     return (
         <>
@@ -41,7 +40,7 @@ const Navbar = () => {
                             </ul>
                         </div>
 
-                        <SearchInput />
+                        <SearchInputSuspense />
 
                         <div className="flex fixed left-1 top-2.5 xs:relative xs:top-0 xs:left-0 items-center gap-x-2">
                             <div className="hidden sm:flex gap-x-2">
@@ -52,24 +51,31 @@ const Navbar = () => {
                                     </>
                                 ) : user ? (
                                     <>
-                                        <Link href="/profile">
+                                        <Link href={`/profile/${role}`}>
                                             <Button className="gap-2">
                                                 <User size={18} />
                                                 پروفایل
                                             </Button>
                                         </Link>
-                                        <Button variant="danger" onClick={handleSignOut} className="gap-2">
-                                            {isSigningOut ? (
-                                                <>
-                                                    <Loader2 size={18} className="animate-spin" />
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <LogOut size={18} />
-                                                    خروج
-                                                </>
-                                            )}
-                                        </Button>
+                                        <form action={signOutAction}>
+                                            <Button
+                                                type="submit"
+                                                variant="danger"
+                                                className="gap-2"
+                                                disabled={isPending}
+                                            >
+                                                {isPending ? (
+                                                    <>
+                                                        <Loader2 size={22} className="animate-spin" />
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <LogOut size={18} />
+                                                        خروج
+                                                    </>
+                                                )}
+                                            </Button>
+                                        </form>
                                     </>
                                 ) : (
                                     <>
@@ -88,7 +94,7 @@ const Navbar = () => {
                 </div>
             </nav>
 
-            <MobileTabBar user={user} loading={loading} isSigningOut={isSigningOut} onSignOut={handleSignOut} />
+            <MobileTabBar user={user} loading={loading} isSigningOut={isPending} onSignOut={signOutAction} />
         </>
     );
 };

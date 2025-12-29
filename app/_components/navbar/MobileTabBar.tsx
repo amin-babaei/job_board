@@ -1,7 +1,7 @@
-import { Briefcase, Home,  BadgeQuestionMark, SquareUser, LogOut, Loader2 } from "lucide-react";
-import { User as UserIcon } from "lucide-react"; 
+import { Briefcase, Home, BadgeQuestionMark, SquareUser, LogOut, Loader2 } from "lucide-react";
+import { User as UserIcon } from "lucide-react";
 import Link from "next/link";
-import type { User } from "@supabase/supabase-js"; 
+import type { User } from "@supabase/supabase-js";
 interface MobileTabBarProps {
     user: User | null;
     loading: boolean;
@@ -48,18 +48,22 @@ const MobileTabBar = ({ user, loading, onSignOut, isSigningOut }: MobileTabBarPr
                             </button>
                         </Link>
 
-                        <button onClick={onSignOut} className="sm:hidden flex flex-col items-center text-red-600">
-                            {isSigningOut ? (
-                                <Loader2 size={26} className="animate-spin" />
-                            ) : (
-                                <>
+                        <form action={onSignOut}>
+                            <button
+                                type="submit"
+                                disabled={isSigningOut}
+                                className="flex flex-col items-center text-red-600 disabled:opacity-50"
+                            >
+                                {isSigningOut ? (
+                                    <Loader2 size={26} className="animate-spin" />
+                                ) : (
                                     <LogOut size={26} />
-                                    <span className="text-xs mt-1">خروج</span>
-                                </>
-                            )}
-                            <LogOut size={26} />
-                            
-                        </button>
+                                )}
+                                <span className="text-xs mt-1">
+                                    {isSigningOut ? "در حال خروج..." : "خروج"}
+                                </span>
+                            </button>
+                        </form>
                     </>
                 ) : (
                     <>

@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "@components/ui/Button";
+import ErrorMessage from "@components/ui/ErrorMessage";
 import { Input } from "@components/ui/Input";
 import { signInEmployer } from "@lib/actions/LoginActions";
 import { Mail } from "lucide-react";
@@ -14,9 +15,7 @@ function LoginFormEmployer() {
       <Input name="password" type="password" placeholder="پسورد (حداقل ۶ کاراکتر)" required />
 
       {state?.error && (
-        <p className="text-red-500 text-sm text-center bg-red-50 px-4 py-3 rounded-lg">
-          {state.error}
-        </p>
+        <ErrorMessage message={state.error}/>
       )}
 
       <Button type="submit" variant="primary" className="w-full py-2 text-lg" disabled={isPending}>

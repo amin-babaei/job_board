@@ -12,7 +12,7 @@ export async function signInWithGoogle() {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/jobs`,
+      redirectTo: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/callback`,
       queryParams: {
         prompt: "select_account",
       },
@@ -33,7 +33,7 @@ export async function signInWithLinkedin() {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "linkedin_oidc",
     options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/jobs`,
+      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
       scopes: "openid profile email",
     },
   });
@@ -106,7 +106,7 @@ export async function signUpWithEmail(prevState: State, formData: FormData): Pro
       return { error: "ثبت‌نام موفق بود، اما ذخیره پروفایل با خطا مواجه شد." };
     }
   }
-  redirect("/auth/login/candidate");
+  redirect("/profile/candidate");
 }
 export async function signUpEmployer(prevState: State, formData: FormData): Promise<State> {
   const email = formData.get("email") as string;
@@ -155,5 +155,5 @@ export async function signUpEmployer(prevState: State, formData: FormData): Prom
     }
   }
 
-  redirect("/auth/login/employer");
+  redirect("/profile/employer");
 }

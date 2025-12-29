@@ -12,6 +12,7 @@
     "@supabase/ssr": "^0.8.0",
     "lucide-react": "^0.554.0",
     "next": "16.0.10",
+    "nextjs-toploader": "^3.9.17",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-typed": "^2.0.12",

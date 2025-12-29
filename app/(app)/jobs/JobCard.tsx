@@ -4,14 +4,14 @@ import { Banknote, Building2, ClipboardClock, MapPin } from 'lucide-react';
 import { formatCurrency } from "@utils/priceFormatter"
 import Link from 'next/link';
 import { generateJobSlug } from '@utils/generateJobSlug';
+import { persianJobType } from '@utils/persianJobType';
 const JobCard = ({ job }: { job: JobPost}) => {
 
-    const persianType = job.job_type === "full_time" ? "تمام وقت" : job.job_type === "part_time" ? "پاره وقت" : "دورکاری";
     const jobSlug = generateJobSlug(job.title);
 
     return (
         <Link href={`/jobs/${job.serial_id}/${jobSlug}`}> 
-            <div className="flex gap-4 items-start shadow-soft rounded-lg p-4 h-56">
+            <div className="flex gap-4 items-start shadow-soft rounded-lg p-4 h-56 hover:shadow-lg transition">
 
                 <Building2 size={40} className="text-muted shrink-0 mt-1" />
 
@@ -29,7 +29,7 @@ const JobCard = ({ job }: { job: JobPost}) => {
                     </p>
 
                     <p className="text-sm flex items-center gap-x-2">
-                        <ClipboardClock size={18} /> {persianType}
+                        <ClipboardClock size={18} /> {persianJobType(job.job_type)}
                     </p>
 
                     <p className="text-sm flex items-center gap-x-2">

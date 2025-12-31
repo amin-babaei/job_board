@@ -8,11 +8,11 @@ import { getEmployerByUserId } from "@services/employer";
 import ApplicationsReceivedData from "./ApplicationsReceivedData";
 
 export default async function ApplicationsReceived() {
-   const user = await getCurrentUser();
-  
-    const employer = await getEmployerByUserId(user!.id);
-  
-    const { applications } = await ApplicationsReceivedData({ employerId: employer!.id });
+  const user = await getCurrentUser();
+
+  const employer = await getEmployerByUserId(user!.id);
+
+  const { applications } = await ApplicationsReceivedData({ employerId: employer!.id });
 
   if (applications.length === 0) {
     return (
@@ -27,7 +27,7 @@ export default async function ApplicationsReceived() {
         return (
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
             <Eye size={16} />
-           در حال بررسی
+            در حال بررسی
           </span>
         );
       case "accepted":
@@ -95,7 +95,7 @@ export default async function ApplicationsReceived() {
                     دانلود رزومه
                   </Button>
                 </a>
-                <StatusAction id={app.id} />
+                {app.status === "pending" && <StatusAction id={app.id} />}
               </div>
             )}
           </div>

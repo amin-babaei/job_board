@@ -2,9 +2,10 @@ import OAuthButtons from "../../OAuthButtons";
 import RegisterForm from "./RegisterForm";
 import SummaryCandidate from "../../SummaryCandidate";
 import { Metadata } from "next";
+import HeaderAuth from "../../Header";
 
 export const metadata: Metadata = {
-  title: 'ثبت نام کارجو',
+    title: 'ثبت نام کارجو',
 };
 
 export default function RegisterPage() {
@@ -13,11 +14,7 @@ export default function RegisterPage() {
         <div className="min-h-dvh flex flex-col justify-center lg:flex-row">
             <div className="w-full lg:relative lg:w-[30%] bg-background flex items-center justify-center px-4">
                 <div className="w-full max-w-md bg-card p-8 rounded-lg shadow-lg lg:absolute lg:right-1/2">
-                    <div className="text-center mb-10">
-                        <h2 className="text-3xl font-extrabold text-foreground">
-                            ثبت‌نام کارجو
-                        </h2>
-                    </div>
+                    <HeaderAuth title="ثبت نام کارجو" />
 
                     <OAuthButtons googleLable="ثبت نام با گوگل" linkedinLable="ثبت نام با لینکدین" />
 

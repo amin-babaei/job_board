@@ -7,13 +7,16 @@ export const MarkAllReadButton = () => {
   const { pending } = useFormStatus();
 
   return (
-    <Button type="submit" variant="success" disabled={pending}>
+    <Button type="submit" variant="primary" disabled={pending} className="text-sm">
      {pending ? (
         <>
           <Loader2 size={22} className="animate-spin mr-2" />
         </>
       ) : (
-        "همه را خوانده‌شده کن"
+       <>
+        خواندن همه
+       <Check size={16} />
+       </>
       )}
     </Button>
   )
@@ -23,7 +26,7 @@ export const MarkReadButton = () => {
   const { pending } = useFormStatus();
 
   return (
-    <Button type="submit" variant="success" disabled={pending}>
+    <Button type="submit" variant="primary" disabled={pending}>
      {pending ? (
         <>
           <Loader2 size={22} className="animate-spin mr-2" />

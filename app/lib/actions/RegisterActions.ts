@@ -92,6 +92,10 @@ export async function signUpWithEmail(prevState: State, formData: FormData): Pro
   }
 
   if (data.user) {
+    await supabase.from("user_roles").upsert({
+      user_id: data.user.id,
+      role: "candidate"
+    }, { onConflict: "user_id" });
     const { error: profileError } = await supabase.from("job_seekers").insert({
       user_id: data.user.id,
       full_name,
@@ -140,6 +144,10 @@ export async function signUpEmployer(prevState: State, formData: FormData): Prom
   }
 
   if (data.user) {
+    await supabase.from("user_roles").upsert({
+      user_id: data.user.id,
+      role: "employer"
+    }, { onConflict: "user_id" });
     const { error: employerError } = await supabase.from("employers").insert({
       user_id: data.user.id,
       company_name,

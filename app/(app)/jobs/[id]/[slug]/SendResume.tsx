@@ -1,11 +1,11 @@
 "use client"
 
 import { Button } from "@components/ui/Button"
-import { useSupabaseUser } from "@hooks/useSupabaseUser"
+import { useAuth } from "app/context/AuthContext"
 import Link from "next/link"
 
 const SendResume = ({ link }: { link: string }) => {
-    const { role, loading } = useSupabaseUser()
+    const { role } = useAuth()
 
     return (
         <div className="md:sticky md:top-24 md:self-start">
@@ -14,12 +14,9 @@ const SendResume = ({ link }: { link: string }) => {
                     از اینجا شروع کنید
                 </h4>
                 <Link href={role == "candidate" ? link : role === "employer" ? "" : "/auth/register/candidate"}>
-                    {loading ?
-                        <div className="w-full rounded-lg h-12 bg-gray-400 animate-pulse"></div>
-                        : <Button variant="primary" className="w-full" disabled={role === "employer"}>
-                            ارسال رزومه
-                        </Button>
-                    }
+                    <Button variant="primary" className="w-full" disabled={role === "employer"}>
+                        ارسال رزومه
+                    </Button>
                 </Link>
                 <p className="text-center text-sm text-muted mt-4">
                     با یک کلیک رزومه خود را ارسال کنید

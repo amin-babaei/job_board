@@ -1,18 +1,21 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { createSupabaseServerClient } from "@lib/supabase/createServerClient";
+import { getCurrentUser } from "@lib/supabase/auth";
+import { getUserRoleFromDB } from "@services/userService";
 
 export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   const supabase = await createSupabaseServerClient();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data: { user }} = await supabase.auth.getUser();
+  const currentUser = await getCurrentUser();
+
+  let role: "candidate" | "employer" | null = null;
 
   if (!user) {
-    if(pathname.startsWith("/profile/candidate")) {
+    if (pathname.startsWith("/profile/candidate")) {
       return NextResponse.redirect(new URL("/auth/register/candidate", req.url));
     }
     if (pathname.startsWith("/profile/employer")) {
@@ -22,33 +25,29 @@ export async function proxy(req: NextRequest) {
     return NextResponse.next();
   }
 
-  const [seekerRes, employerRes] = await Promise.all([
-    supabase.from("job_seekers").select("user_id").eq("user_id", user?.id).maybeSingle(),
-    supabase.from("employers").select("id").eq("user_id", user?.id).maybeSingle(),
-  ]);
-
-  const isCandidate = seekerRes.data !== null;
-  const isEmployer = employerRes.data !== null;
+  if (currentUser) {
+    role = await getUserRoleFromDB(user.id);
+  }
 
   if (pathname.startsWith("/auth")) {
-    if (isEmployer) {
+    if (role == "employer") {
       return NextResponse.redirect(new URL("/profile/employer", req.url));
     }
-    if (isCandidate) {
+    if (role == "candidate") {
       return NextResponse.redirect(new URL("/profile/candidate", req.url));
     }
     return NextResponse.redirect(new URL("/", req.url));
   }
 
   if (pathname.startsWith("/profile/employer")) {
-    if (!isEmployer) {
+    if (role != "employer") {
       return NextResponse.redirect(new URL("/not-found", req.url));
     }
     return NextResponse.next();
   }
 
   if (pathname.startsWith("/profile/candidate")) {
-    if (!isCandidate) {
+    if (role != "candidate") {
       return NextResponse.redirect(new URL("/not-found", req.url));
     }
     return NextResponse.next();

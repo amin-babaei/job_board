@@ -114,8 +114,6 @@ export async function changeApplicationStatus(
   const applicationId = formData.get("application_id") as string;
   const newStatus = formData.get("status") as "pending" | "reviewed" | "accepted" | "rejected";
 
-  console.log("Changing status for application:", applicationId, "to", newStatus);
-
   if (!applicationId || !newStatus) {
     return { error: "داده‌های ناقص" };
   }

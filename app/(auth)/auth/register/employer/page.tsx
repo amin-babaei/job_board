@@ -2,9 +2,10 @@ import Link from "next/link";
 import EmployerRegisterForm from "./RegisterForm";
 import SummaryEmployer from "../../SummaryEmployer";
 import { Metadata } from "next";
+import HeaderAuth from "../../Header";
 
 export const metadata: Metadata = {
-  title: 'ثبت نام کارفرما',
+    title: 'ثبت نام کارفرما',
 };
 
 export default function EmployerRegisterPage() {
@@ -12,11 +13,7 @@ export default function EmployerRegisterPage() {
         <div className="min-h-dvh flex flex-col justify-center lg:flex-row">
             <div className="w-full lg:relative lg:w-[30%] bg-background flex items-center justify-center px-4">
                 <div className="w-full max-w-md bg-card p-8 rounded-lg shadow-lg lg:absolute lg:right-1/2">
-                    <div className="text-center mb-10">
-                        <h2 className="text-3xl font-extrabold text-foreground">
-                            ثبت‌نام کارفرما
-                        </h2>
-                    </div>
+                    <HeaderAuth title="ثبت نام کارفرما" />
 
 
                     <EmployerRegisterForm />

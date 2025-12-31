@@ -5,10 +5,10 @@ import SearchInput from "./SearchInput";
 import MobileTabBar from "./MobileTabBar";
 import Link from "next/link";
 import { Button } from "@components/ui/Button";
-import { useSupabaseUser } from "@hooks/useSupabaseUser";
 import { Loader2, LogOut, User } from "lucide-react";
 import { Suspense, useActionState } from "react";
 import { handleSignOut } from "@lib/actions/LoginActions";
+import { useAuth } from "app/context/AuthContext";
 
 function SearchInputSuspense() {
   return (
@@ -22,7 +22,7 @@ function SearchInputSuspense() {
   );
 }
 const Navbar = () => {
-    const { user, loading, role } = useSupabaseUser();
+    const { user, role, loading } = useAuth();
     const [state, signOutAction, isPending] = useActionState(handleSignOut, null);
 
     return (

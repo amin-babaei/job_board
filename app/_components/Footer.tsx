@@ -47,10 +47,10 @@ export default function Footer() {
           <div className="sm:ml-auto">
             <h4 className="text-sm font-semibold mb-3">برای کارفرما / جوینده</h4>
             <ul className="space-y-2 text-sm text-muted">
-              <li><Link href="/auth/register/employer" className="hover:text-primary transition">ثبت آگهی</Link></li>
+              <li><Link href="/profile/employer" className="hover:text-primary transition">ثبت آگهی</Link></li>
               <li><Link href="/auth/register/candidate" className="hover:text-primary transition">ایجاد حساب کاربری</Link></li>
-              <li><a href="#" className="hover:text-primary transition">پنل کارجو</a></li>
-              <li><a href="#" className="hover:text-primary transition">پنل کارفرما</a></li>
+              <li><Link href="/profile/candidate" className="hover:text-primary transition">پنل کارجو</Link></li>
+              <li><Link href="/profile/employer" className="hover:text-primary transition">پنل کارفرما</Link></li>
             </ul>
           </div>
           <div>

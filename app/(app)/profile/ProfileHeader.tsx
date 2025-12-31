@@ -1,8 +1,8 @@
 import { Mail } from "lucide-react";
 import { User as UserIcon } from "lucide-react";
-import NotificationBell from "./employer/notifications/NotificationBell";
 import { getCurrentUser } from "@lib/supabase/auth";
 import { createBrowserSupabaseClient } from "@lib/supabase/createBrowserClient";
+import NotifData from "./notifications/NotifData";
 
 
 export default async function ProfileHeader() {
@@ -32,7 +32,7 @@ export default async function ProfileHeader() {
             {user?.email}
           </p>
         </div>
-        <NotificationBell />
+        <NotifData />
       </div>
     </div>
   );

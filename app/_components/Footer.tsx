@@ -69,11 +69,10 @@ export default function Footer() {
           </div>
         </div>
 
-        <p className="text-sm text-center mt-10 border-t border-border-main py-5 text-muted">
+      </div>
+       <p className="text-sm text-center mt-10 border-t border-border-main py-5 text-muted">
           © {year} جاب اونجا. همه حقوق محفوظ است. 
         </p>
-
-      </div>
     </footer>
   );
 }

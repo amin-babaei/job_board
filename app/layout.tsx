@@ -29,7 +29,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang="fa-IR">
-      <body className={myFont.className}>
+      <body className={`min-h-screen flex flex-col ${myFont.className}`}>
         <ThemeProvider>
           <NextTopLoader
             color="#3b82f6"
